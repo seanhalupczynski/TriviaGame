@@ -26,7 +26,7 @@ var questions = [firstQuestion = {
                     fifthQuestion = {
                         question: "What time is it?",
                         answers: ["Tooth hurty", "Nap time", "Game time! Wooo!", "Lunch time"],
-                        correctAnswer: "Game time! Woo!"
+                        correctAnswer: "Game time! Wooo!"
                     }];
                 console.log(questions)
 var seconds;
@@ -39,7 +39,7 @@ function stopTimer() {
 
 // Function that sets the timer to decrement by 1 second
 function countdown(){
-    var questionTimer = 3;
+    var questionTimer = 10;
 
     clearInterval(seconds);
     seconds = setInterval(decrement, 1000);
@@ -62,7 +62,7 @@ function countdown(){
                 $("#answers").hide();
                 stopTimer();
                 layover();
-                setTimeout(displayQuestion, 1000*2);    
+                setTimeout(displayQuestion, 1000*5);    
 
                 // Increase the question counter
                 questionCounter++;
@@ -73,7 +73,7 @@ function countdown(){
 
 
 function layover (){
-    var breakTimer = 2;
+    var breakTimer = 5;
 
     clearInterval(seconds);
     seconds = setInterval(decrement2, 1000);
@@ -83,9 +83,6 @@ function layover (){
     function decrement2 () {
         breakTimer--;
         $("#header").html("<h1>Faking Confidence Trivia Challenge</h1><h2>Time Till Next Question: " + breakTimer + "</h2>");
-        // if(breakTimer === 0) {
-        //     stopTimer();
-        // };
     };
 };
 
@@ -96,7 +93,7 @@ function displayQuestion() {
         stopTimer();
         $("#text").html("<h3>You answered " + answerCounter + " out of " + questionCounter + " correct.")
     }
-    else {
+    else{
 
     // Begin question timer
     countdown();
@@ -108,11 +105,14 @@ function displayQuestion() {
     $("#answers").html(function (){
 
         // Loop to create the answer buttons
-        for(i=0; i<questions[questionCounter].answers.length; i++){
+        // for(i=0; i<questions[questionCounter].answers.length; i++){
             $("#answers").show();
-            $("#answers").append("<button class='btn btn-default' id='answerButton'>"+questions[questionCounter].answers[i]+"</button>");
-            console.log(questions[questionCounter].answers[i]);
-        };
+            $("#answers").html("<button class='btn btn-default' id='answerButton'>"+questions[questionCounter].answers[0]+"</button>");
+            $("#answers").append("<button class='btn btn-default' id='answerButton'>"+questions[questionCounter].answers[1]+"</button>");
+            $("#answers").append("<button class='btn btn-default' id='answerButton'>"+questions[questionCounter].answers[2]+"</button>");
+            $("#answers").append("<button class='btn btn-default' id='answerButton'>"+questions[questionCounter].answers[3]+"</button>");
+            // console.log(questions[questionCounter].answers[i]);
+        // };
     });
 };
 };
@@ -179,12 +179,6 @@ $("#answers").click(function(){
         
     };
     questionCounter++;
-    setTimeout(displayQuestion, 1000*2);  
-    // for(q=0; q<=questions.length; q++){
-    //     if(q===questions.length){
-    //         stopTimer();
-    //         $("#text").html("<h3>You answered " + answerCounter + " out of " + questionCounter + " correct.")
-    //     };
-    // };  
+    setTimeout(displayQuestion, 1000*5);  
 });
 });
