@@ -30,8 +30,6 @@ var questions = [firstQuestion = {
                     }];
                 console.log(questions)
 var seconds;
-var questionTimer = 10;
-var breakTimer = 5;
 var answerCounter = 0;
 var questionCounter = 0;
 
@@ -41,6 +39,8 @@ function stopTimer() {
 
 // Function that sets the timer to decrement by 1 second
 function countdown(){
+    var questionTimer = 3;
+
     clearInterval(seconds);
     seconds = setInterval(decrement, 1000);
     // Display the timer
@@ -57,11 +57,12 @@ function countdown(){
             if(questionTimer === 0) {
                 alert("Time is up!");
                 $("#text").html("<h3>Oh no! You are out of time.</h3>")
-                $("#text").append("<h3>The correct answer : " + questions[0].correctAnswer + "</h3>");
+                $("#text").append("<h3>The correct answer : " + questions[questionCounter].correctAnswer + "</h3>");
                 $("#text").append("<img src='assets/images/surprised.jpg'>");
                 $("#answers").hide();
                 stopTimer();
                 layover();
+                setTimeout(displayQuestion, 1000*5);    
 
                 // Increase the question counter
                 questionCounter++;
@@ -72,6 +73,8 @@ function countdown(){
 
 
 function layover (){
+    var breakTimer = 2;
+
     clearInterval(seconds);
     seconds = setInterval(decrement2, 1000);
     // Display time between questions
@@ -80,14 +83,14 @@ function layover (){
     function decrement2 () {
         breakTimer--;
         $("#header").html("<h1>Faking Confidence Trivia Challenge</h1><h2>Time Till Next Question: " + breakTimer + "</h2>");
-        if(breakTimer === 0) {
-            stopTimer();
-        };
+        // if(breakTimer === 0) {
+        //     stopTimer();
+        // };
     };
 };
 
 // Start game
-$("#start").click(function displayQuestion() {
+function displayQuestion() {
 
     // Begin question timer
     countdown();
@@ -97,16 +100,17 @@ $("#start").click(function displayQuestion() {
 
     // Function to display the answers in their own buttons
     $("#answers").html(function (){
-        console.log(questions[questionCounter].answers);
 
         // Loop to create the answer buttons
-        for(i=0; i<questions[questionCounter].answers.length; i++){
-            $("#answers").append("<button class='btn btn-default' id='answerButton'>"+questions[questionCounter].answers[i]+"</button>");
-            console.log(questions[questionCounter].answers[i]);
-            console.log(questions[questionCounter].correctAnswer);
-        };
+        // for(i=0; i<questions[questionCounter].answers.length; i++){
+            $("#answers").append("<button class='btn btn-default' id='answerButton'>"+questions[questionCounter].answers[questionCounter]+"</button>");
+            console.log(questions[questionCounter].answers[questionCounter]);
+        // };
     });
-});
+    // setTimeout(displayQuestion, 1000*3);    
+};
+
+$("#start").on("click", displayQuestion)
 
 // On click function to check if answer is right or wrong
 $("#answers").click(function(){
@@ -140,8 +144,6 @@ $("#answers").click(function(){
         // Start countdown till next question
         layover();
 
-        // Increase the question counter
-        questionCounter++;
     }
     // If the user chooses a wrong answer
     else {
@@ -168,11 +170,8 @@ $("#answers").click(function(){
         // Start countdown till next question
         layover();
         
-        // Increase the question counter
-        questionCounter++;
-    };    
-    if(breakTimer === 0) {
-        displayQuestion();
     };
+    questionCounter++;
+    setTimeout(displayQuestion, 1000*5);    
 });
 });
