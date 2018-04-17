@@ -62,7 +62,7 @@ function countdown(){
                 $("#answers").hide();
                 stopTimer();
                 layover();
-                setTimeout(displayQuestion, 1000*5);    
+                setTimeout(displayQuestion, 1000*2);    
 
                 // Increase the question counter
                 questionCounter++;
@@ -92,6 +92,12 @@ function layover (){
 // Start game
 function displayQuestion() {
 
+    if(questionCounter===questions.length){
+        stopTimer();
+        $("#text").html("<h3>You answered " + answerCounter + " out of " + questionCounter + " correct.")
+    }
+    else {
+
     // Begin question timer
     countdown();
     // Display first question
@@ -102,12 +108,13 @@ function displayQuestion() {
     $("#answers").html(function (){
 
         // Loop to create the answer buttons
-        // for(i=0; i<questions[questionCounter].answers.length; i++){
-            $("#answers").append("<button class='btn btn-default' id='answerButton'>"+questions[questionCounter].answers[questionCounter]+"</button>");
-            console.log(questions[questionCounter].answers[questionCounter]);
-        // };
+        for(i=0; i<questions[questionCounter].answers.length; i++){
+            $("#answers").show();
+            $("#answers").append("<button class='btn btn-default' id='answerButton'>"+questions[questionCounter].answers[i]+"</button>");
+            console.log(questions[questionCounter].answers[i]);
+        };
     });
-    // setTimeout(displayQuestion, 1000*3);    
+};
 };
 
 $("#start").on("click", displayQuestion)
@@ -172,6 +179,12 @@ $("#answers").click(function(){
         
     };
     questionCounter++;
-    setTimeout(displayQuestion, 1000*5);    
+    setTimeout(displayQuestion, 1000*2);  
+    // for(q=0; q<=questions.length; q++){
+    //     if(q===questions.length){
+    //         stopTimer();
+    //         $("#text").html("<h3>You answered " + answerCounter + " out of " + questionCounter + " correct.")
+    //     };
+    // };  
 });
 });
